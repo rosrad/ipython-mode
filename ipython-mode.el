@@ -1,13 +1,13 @@
-;;; iPython-mode.el --- ESS-like behavior in Python-mode & Comint-mode
+;;; ipython-mode.el --- ESS-like behavior in Python-mode & Comint-mode
 
 ;; Copyright (c) 2014- Bernhard Pröll
 
 ;; Author: Bernhard Pröll 
 ;; Maintainer: Bernhard Pröll 
-;; URL: https://github.com/mutbuerger/iPython-mode.el
+;; URL: https://github.com/mutbuerger/ipython-mode.el
 ;; Created: 26.02.2014
 ;; Version: 0.1
-;; Keywords: iPython, customization
+;; Keywords: ipython, customization
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -52,7 +52,7 @@
 (setq py-switch-buffers-on-execute-p nil) ;prevent switching buffers
 
 (defun execute-region-or-buffer-ipython () ;execute region or line and set ipython buffer to other window
-  "Send active region or buffer to iPython interpreter and show interpreter buffer in other window"
+  "Send active region or buffer to ipython interpreter and show interpreter buffer in other window"
   (interactive)
   (setq buf (current-buffer))
   (if (region-active-p)
@@ -64,7 +64,7 @@
   )
 
 (defun execute-line-ipython ()
-  "Send line at point to iPython interpreter and show interpreter buffer in other window"
+  "Send line at point to ipython interpreter and show interpreter buffer in other window"
   (interactive)
   (setq buf (current-buffer))
   (setq p1 (point))
@@ -75,7 +75,7 @@
   )
 
 (defun switch-to-ipython-interpreter ()
-  "Switch to iPython interpreter buffer"
+  "Switch to ipython interpreter buffer"
   (interactive)
   (setq buf (current-buffer))
   (switch-to-buffer-other-window "*Ipython*")
@@ -88,8 +88,8 @@
   (switch-to-buffer-other-window buf)
   )
 
-(defun iPython-send-input ()
-  "Send input in iPython interpreter and clear line"
+(defun ipython-send-input ()
+  "Send input in ipython interpreter and clear line"
   (interactive)
   (comint-send-input)
   (kill-line 1)				;bc sent code persists in new cells for me; depends on the python version afaik
@@ -106,18 +106,18 @@
 ;;; and to jump back and forth between interpreter and script buffer with C-c C-z:
 (define-key python-mode-map (kbd "C-c C-z") 'switch-to-ipython-interpreter)
 
-;;; Autostart iPython-mode and Jedi in Py-shell
-(add-hook 'py-shell-hook 'iPython-mode)
+;;; Autostart ipython-mode and Jedi in Py-shell
+(add-hook 'py-shell-hook 'ipython-mode)
 (add-hook 'py-shell-hook 'jedi:setup)
 (add-hook 'py-shell-hook 'yas-minor-mode)
 
-(define-minor-mode iPython-mode
-  "Minor mode to emulate an ESS-like workflow with Python-mode & an iPython interpreter"
-  :lighter " iPython" 
+(define-minor-mode ipython-mode
+  "Minor mode to emulate an ESS-like workflow with Python-mode & an ipython interpreter"
+  :lighter " ipython" 
   :keymap (let ((map (make-sparse-keymap)))
 	    (define-key map (kbd "C-c C-z") 'switch-to-script-buffer)
-	    (define-key map (kbd "RET") 'iPython-send-input)
+	    (define-key map (kbd "RET") 'ipython-send-input)
             map)
   )
 
-(provide 'iPython-mode)
+(provide 'ipython-mode)
