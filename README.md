@@ -1,3 +1,5 @@
+This is forked from https://github.com/mutbuerger/iPython-mode.el
+
 # iPython-mode
 
 ![iPython-mode](https://raw.github.com/mutbuerger/iPython-mode.el/master/iPython-mode.gif "iPython-mode showcase")
